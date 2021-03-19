@@ -23,12 +23,11 @@ from multiprocessing import Process, Queue
 # sys.path.append(os.path.abspath("/Users/Gustavo/Virtualenvs/scrapy_env/Amazon/Amazon/spiders"))
 # from googlespider import GoogleSpider
 # sys.path.append(os.path.abspath("/Users/Gustavo/Virtualenvs/scrapy_env/Amazon/Amazon/spiders"))
-
-#setup()
+PATH = '/rocket/amazonweb/amazonweb/CSV/'
 class AmazonSpider(scrapy.Spider): 
     
     name = 'amazon_spider'
-    custom_settings = {'FEEDS':{'/Users/Gustavo/rocket/amazonweb/amazonweb/CSV/amazonresultsweb.csv':{'format':'csv'}}}
+    custom_settings = {'FEEDS':{PATH + 'amazonresultsweb.csv':{'format':'csv'}}}
     headers = {
            'user-agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36',
            'accept': '*/*',
@@ -37,7 +36,7 @@ class AmazonSpider(scrapy.Spider):
            'referer': 'https://www.amazon.com'
         }
     try:
-        os.remove('/Users/Gustavo/rocket/amazonweb/amazonweb/CSV/amazonresultsweb.csv')
+        os.remove(PATH + 'amazonresultsweb.csv')
     except OSError:
         pass
     
@@ -64,7 +63,7 @@ class AmazonSpider(scrapy.Spider):
 class GoogleSpider(scrapy.Spider): 
     
     name = 'google_spider'
-    custom_settings = {'FEEDS':{'/Users/Gustavo/rocket/amazonweb/amazonweb/CSV/googleresultsweb.csv':{'format':'csv'}}}
+    custom_settings = {'FEEDS':{PATH + 'googleresultsweb.csv':{'format':'csv'}}}
     header = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -74,7 +73,7 @@ class GoogleSpider(scrapy.Spider):
     'Connection': 'keep-alive',
     } 
     try:
-        os.remove('/Users/Gustavo/rocket/amazonweb/amazonweb/CSV/googleresultsweb.csv')
+        os.remove(PATH + 'googleresultsweb.csv')
     except OSError:
         pass
     
@@ -140,8 +139,8 @@ def main(filtered):
     print('urls updated')
     run_spider(AmazonSpider, GoogleSpider, start_amazon_urls = amazon_urls, start_google_urls = google_urls)
     print('finished scraping images')
-    images_amazon = pd.read_csv('/Users/Gustavo/rocket/amazonweb/amazonweb/CSV/amazonresultsweb.csv')
-    images_google = pd.read_csv('/Users/Gustavo/rocket/amazonweb/amazonweb/CSV/googleresultsweb.csv')
+    images_amazon = pd.read_csv(PATH + 'amazonresultsweb.csv')
+    images_google = pd.read_csv(PATH + 'googleresultsweb.csv')
     url_dict_amazon = images_amazon.groupby(by = ['url'])['link'].groups
     url_dict_google = images_google.groupby(by = ['url'])['link'].groups
     image1 = []
@@ -183,5 +182,5 @@ def main(filtered):
     filtered['im4'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image4]
     filtered['im5'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image5]
     filtered['im6'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image6]
-    filtered.to_csv('/Users/Gustavo/rocket/amazonweb/amazonweb/CSV/keyword_table_with_images.csv', index=False, sep= '\t')
+    filtered.to_csv(PATH + 'keyword_table_with_images.csv', index=False, sep= '\t')
         
