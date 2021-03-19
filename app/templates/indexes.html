@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html >
+{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <title>Rocket P2</title>
+  
+</head>
+
+<body style="background: #1000;">
+ <div class="productresearch">
+	<h1>Product Research</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+            {% if field.type == "SubmitField" %}
+                <br>{{ field() }}
+            {% endif %}
+            {%if field.type == "IntegerField" %}
+                {{ field.label }}<br>
+                {{ field() }}<br>
+            {% endif %}
+        {% endfor %}
+    </form>
+   <br>
+   <br>
+   {% if output_text %}
+       {{ output_text }}
+   {% endif %}
+ </div>
+</body>
+{% endblock %}
+</html>
