@@ -23,7 +23,7 @@ from multiprocessing import Process, Queue
 # sys.path.append(os.path.abspath("/Users/Gustavo/Virtualenvs/scrapy_env/Amazon/Amazon/spiders"))
 # from googlespider import GoogleSpider
 # sys.path.append(os.path.abspath("/Users/Gustavo/Virtualenvs/scrapy_env/Amazon/Amazon/spiders"))
-PATH = '/rocket/amazonweb/amazonweb/CSV/'
+PATH = '/amazonweb/amazonweb/CSV/'
 class AmazonSpider(scrapy.Spider): 
     
     name = 'amazon_spider'

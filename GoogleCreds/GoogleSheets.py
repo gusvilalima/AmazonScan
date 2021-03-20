@@ -20,7 +20,7 @@ scopes = [
 ]
 
 credentials = Credentials.from_service_account_file(
-    '/rocket/GoogleCreds/googlecreds.json',
+    '/GoogleCreds/googlecreds.json',
     scopes=scopes
 )
 
