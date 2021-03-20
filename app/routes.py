@@ -25,7 +25,7 @@ def productresearch():
         database = aws.DataBaseConnection()
         sql = '''SELECT products_database_table.totalNOPforKeyword, keyword_table.* FROM keyword_table JOIN products_database_table ON products_database_table.parentkeyword = keyword_table.keywordname WHERE easeOfRankingScore > {} AND  exactSearchVolume > {} AND totalNOPforKeyword < {};'''.format(int_features[0], int_features[1], int_features[2])
         x = pd.read_sql_query(sql, database.connection).drop_duplicates(subset=['keywordid'])
-        petitspider.main(x[:300])
+        petitspider.main(x[:100])
         gs.main()
         return render_template('indexes.html', output_text = 'Google sheet has been updated', form=form)
     else:
