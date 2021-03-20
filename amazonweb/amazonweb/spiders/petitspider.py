@@ -9,21 +9,15 @@ Created on Wed Feb 24 16:19:13 2021
 import scrapy 
 import pandas as pd
 import numpy as np
-#from scrapy.crawler import CrawlerProcess
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
 
 import os
-#from scrapy.utils.log import configure_logging
 from multiprocessing import Process, Queue
 
-
-# import sys 
-# import os
-# sys.path.append(os.path.abspath("/Users/Gustavo/Virtualenvs/scrapy_env/Amazon/Amazon/spiders"))
-# from googlespider import GoogleSpider
-# sys.path.append(os.path.abspath("/Users/Gustavo/Virtualenvs/scrapy_env/Amazon/Amazon/spiders"))
 PATH = 'amazonweb/amazonweb/CSV/'
+
+
 class AmazonSpider(scrapy.Spider): 
     
     name = 'amazon_spider'
@@ -41,7 +35,7 @@ class AmazonSpider(scrapy.Spider):
         pass
     
     def parse(self,response):
-        #products = response.css('div.sg-col-16-of-20.sg-col.sg-col-8-of-12.sg-col-12-of-16')
+        
         
         products = response.css('div.a-section.a-spacing-medium')
         for product in products:
@@ -77,8 +71,7 @@ class GoogleSpider(scrapy.Spider):
     except OSError:
         pass
     
-    def parse(self,response): #islrg > div.islrc > div:nth-child(1) > a.wXeWr.islib.nfEiy.mM5pbd > div.bRMDJf.islir > img
-        #products = response.css('div.sg-col-16-of-20.sg-col.sg-col-8-of-12.sg-col-12-of-16')
+    def parse(self,response): 
         
         images = response.css('div.RAyV4b')
         for image in images:
@@ -156,27 +149,27 @@ def main(filtered):
         try:
             image1.append(images_amazon.iloc[url_dict_amazon[amazonurl][0], 1])
         except:
-            image1.append(np.nan)
+            image1.append('none')
         try:
             image2.append(images_amazon.iloc[url_dict_amazon[amazonurl][1], 1])
         except:
-            image2.append(np.nan)
+            image2.append('none')
         try:
             image3.append(images_amazon.iloc[url_dict_amazon[amazonurl][2], 1])
         except:
-            image3.append(np.nan)
+            image3.append('none')
         try:
             image4.append(images_google.iloc[url_dict_google[googleurl][0], 0])
         except:
-            image4.append(np.nan)
+            image4.append('none')
         try:
             image5.append(images_google.iloc[url_dict_google[googleurl][1], 0])
         except:
-            image5.append(np.nan)
+            image5.append('none')
         try:
             image6.append(images_google.iloc[url_dict_google[googleurl][2], 0])
         except:
-            image6.append(np.nan)
+            image6.append('none')
     #filtered['realimage'] = filtered['imageurl']
     #filtered.drop(columns=['imageurl'])
     filtered['im1'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image1]

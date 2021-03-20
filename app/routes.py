@@ -34,30 +34,3 @@ def productresearch():
 
 
 
-# @app.route('/products',methods=['POST'])
-# def products():
-
-#     int_features = [int(x) for x in request.form.values()]
-#     final_features = [np.array(int_features)]
-#     prediction = model.predict(final_features)
-
-#     output = round(prediction[0], 2)
-
-#     return render_template('index.html', prediction_text='Sales should be $ {}'.format(output))
-
-
-# @app.route('/')
-# @app.route('/index')
-# def index():
-#     user = {'username': 'Miguel'}
-#     posts = [
-#         {
-#             'author': {'username': 'John'},
-#             'body': 'Beautiful day in Portland!'
-#         },
-#         {
-#             'author': {'username': 'Susan'},
-#             'body': 'The Avengers movie was so cool!'
-#         }
-#     ]
-#     return render_template('indexes.html', user=user, posts=posts)
