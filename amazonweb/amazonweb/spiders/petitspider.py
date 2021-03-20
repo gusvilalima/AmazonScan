@@ -139,7 +139,10 @@ def main(filtered):
     print('urls updated')
     run_spider(AmazonSpider, GoogleSpider, start_amazon_urls = amazon_urls, start_google_urls = google_urls)
     print('finished scraping images')
-    images_amazon = pd.read_csv(PATH + 'amazonresultsweb.csv')
+    try:
+        images_amazon = pd.read_csv(PATH + 'amazonresultsweb.csv')
+    except:
+        raise SystemExit('Could not scrape amazon images')
     images_google = pd.read_csv(PATH + 'googleresultsweb.csv')
     url_dict_amazon = images_amazon.groupby(by = ['url'])['link'].groups
     url_dict_google = images_google.groupby(by = ['url'])['link'].groups
