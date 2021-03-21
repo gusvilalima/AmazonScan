@@ -24,7 +24,7 @@ credentials = Credentials.from_service_account_file(
     scopes=scopes
 )
 
-
+WORKSHEET_ID = 379480938
 
 def main():
     try:
@@ -38,7 +38,7 @@ def main():
             {
                 'updateDimensionProperties': {
                     'range': {
-                        'sheetId': 1577257538,
+                        'sheetId': WORKSHEET_ID,
                         'dimension': 'COLUMNS',
                         'startIndex': 25,
                         'endIndex': 30
@@ -52,7 +52,7 @@ def main():
             {
                 'updateDimensionProperties': {
                     'range': {
-                        'sheetId': 1577257538,
+                        'sheetId': WORKSHEET_ID,
                         'dimension': 'ROWS',
                         'startIndex': 1,
                         },

@@ -15,3 +15,7 @@ class FilterForm(FlaskForm):
     filter_2 = IntegerField('30-Day Search Volume', validators=[DataRequired()])
     filter_3 = IntegerField('Proxy Demand', validators=[DataRequired()])
     submit = SubmitField('Find Products')
+    
+class PageForm(FlaskForm):
+    pagination = IntegerField('Page', validators=[DataRequired()])
+    submit = SubmitField('Save to Google Sheets')
