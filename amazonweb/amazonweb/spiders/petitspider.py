@@ -135,48 +135,49 @@ def main(filtered):
     try:
         images_amazon = pd.read_csv(PATH + 'amazonresultsweb.csv')
     except:
-        raise SystemExit('Could not scrape amazon images')
-    images_google = pd.read_csv(PATH + 'googleresultsweb.csv')
-    url_dict_amazon = images_amazon.groupby(by = ['url'])['link'].groups
-    url_dict_google = images_google.groupby(by = ['url'])['link'].groups
-    image1 = []
-    image2 = []
-    image3 = []
-    image4 = []
-    image5 = []
-    image6 = []
-    for amazonurl, googleurl in zip(amazon_urls, google_urls):
-        try:
-            image1.append(images_amazon.iloc[url_dict_amazon[amazonurl][0], 1])
-        except:
-            image1.append('none')
-        try:
-            image2.append(images_amazon.iloc[url_dict_amazon[amazonurl][1], 1])
-        except:
-            image2.append('none')
-        try:
-            image3.append(images_amazon.iloc[url_dict_amazon[amazonurl][2], 1])
-        except:
-            image3.append('none')
-        try:
-            image4.append(images_google.iloc[url_dict_google[googleurl][0], 0])
-        except:
-            image4.append('none')
-        try:
-            image5.append(images_google.iloc[url_dict_google[googleurl][1], 0])
-        except:
-            image5.append('none')
-        try:
-            image6.append(images_google.iloc[url_dict_google[googleurl][2], 0])
-        except:
-            image6.append('none')
-    #filtered['realimage'] = filtered['imageurl']
-    #filtered.drop(columns=['imageurl'])
-    filtered['im1'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image1]
-    filtered['im2'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image2]
-    filtered['im3'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image3]
-    filtered['im4'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image4]
-    filtered['im5'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image5]
-    filtered['im6'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image6]
-    filtered.to_csv(PATH + 'keyword_table_with_images.csv', index=False, sep= '\t')
+        raise ValueError('Could not scrape amazon images')
+    else:
+        images_google = pd.read_csv(PATH + 'googleresultsweb.csv')
+        url_dict_amazon = images_amazon.groupby(by = ['url'])['link'].groups
+        url_dict_google = images_google.groupby(by = ['url'])['link'].groups
+        image1 = []
+        image2 = []
+        image3 = []
+        image4 = []
+        image5 = []
+        image6 = []
+        for amazonurl, googleurl in zip(amazon_urls, google_urls):
+            try:
+                image1.append(images_amazon.iloc[url_dict_amazon[amazonurl][0], 1])
+            except:
+                image1.append('none')
+            try:
+                image2.append(images_amazon.iloc[url_dict_amazon[amazonurl][1], 1])
+            except:
+                image2.append('none')
+            try:
+                image3.append(images_amazon.iloc[url_dict_amazon[amazonurl][2], 1])
+            except:
+                image3.append('none')
+            try:
+                image4.append(images_google.iloc[url_dict_google[googleurl][0], 0])
+            except:
+                image4.append('none')
+            try:
+                image5.append(images_google.iloc[url_dict_google[googleurl][1], 0])
+            except:
+                image5.append('none')
+            try:
+                image6.append(images_google.iloc[url_dict_google[googleurl][2], 0])
+            except:
+                image6.append('none')
+        #filtered['realimage'] = filtered['imageurl']
+        #filtered.drop(columns=['imageurl'])
+        filtered['im1'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image1]
+        filtered['im2'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image2]
+        filtered['im3'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image3]
+        filtered['im4'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image4]
+        filtered['im5'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image5]
+        filtered['im6'] = [''.join(['=Image(','"', x, '"', ',4,100,122)']) for x in image6]
+        filtered.to_csv(PATH + 'keyword_table_with_images.csv', index=False, sep= '\t')
         

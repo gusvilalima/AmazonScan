@@ -57,8 +57,11 @@ def tableproduct():
         x = database.cursor.fetchall()
         df = pd.DataFrame(data = x, columns=COLUMNS).drop_duplicates(subset=['keywordid'])
         print('starting spider')
-        petitspider.main(df)
-        gs.main()
+        try:
+            petitspider.main(df)
+            gs.main()
+        except ValueError:
+            return render_template('tableofproducts.html', output_text = 'Google sheet could not be updated. Try again later', form=pageform)
         return render_template('tableofproducts.html', output_text = 'Google sheet has been updated', form=pageform)
     else:
         return render_template('tableofproducts.html', output_text = None, form=pageform)
