@@ -16,6 +16,8 @@ import psycopg2
 from amazonweb.amazonweb.spiders import petitspider
 from GoogleCreds import GoogleSheets as gs
 
+
+
 COLUMNS = ['totalnopforkeyword', 'keywordname', 'score', 'matches', 'keywordid',
        'exactsuggestedbidmedian', 'avggiveaway', 'exactavgcpc',
        'exactsearchvolume', 'estimatedbroadsearchvolume', 'keywordcountry',
@@ -65,4 +67,9 @@ def tableproduct():
         return render_template('tableofproducts.html', output_text = 'Google sheet has been updated', form=pageform)
     else:
         return render_template('tableofproducts.html', output_text = None, form=pageform)
+
+
+
+
+
 

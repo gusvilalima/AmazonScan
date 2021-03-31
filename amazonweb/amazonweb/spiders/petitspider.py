@@ -17,6 +17,9 @@ from multiprocessing import Process, Queue
 
 PATH = 'amazonweb/amazonweb/CSV/'
 
+# import crochet
+# crochet.setup()
+
 
 class AmazonSpider(scrapy.Spider): 
     
@@ -96,12 +99,14 @@ def run_spider(spider_amazon, spider_google, start_amazon_urls, start_google_url
 
     if result is not None:
         raise result
-
+        
+# @crochet.run_in_reactor
 def f(q, spider_amazon, spider_google, start_amazon_urls, start_google_urls):
     try:
         runner = CrawlerRunner()
         runner.crawl(spider_amazon, start_urls = start_amazon_urls)
         runner.crawl(spider_google, start_urls = start_google_urls)
+        runner.join()
         deferred = runner.join()
         deferred.addBoth(lambda _: reactor.stop())
         reactor.run()

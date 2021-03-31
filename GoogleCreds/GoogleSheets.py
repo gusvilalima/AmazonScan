@@ -10,7 +10,7 @@ Created on Sat Feb 27 14:59:42 2021
 
 import pandas as pd
 import gspread
-from gspread_dataframe import set_with_dataframe
+from gspread_dataframe import set_with_dataframe, get_as_dataframe
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
@@ -24,7 +24,7 @@ credentials = Credentials.from_service_account_file(
     scopes=scopes
 )
 
-WORKSHEET_ID = 682330983
+WORKSHEET_ID = 873892569
 
 def main():
     try:
@@ -69,6 +69,13 @@ def main():
     sh = gc.open_by_key(spreadsheet_key)
     worksheet = sh.get_worksheet(5)
     df = pd.read_csv('amazonweb/amazonweb/CSV/keyword_table_with_images.csv', sep = '\t')
+    try:
+        df_old = get_as_dataframe(worksheet)
+        df_old.dropna(axis=0, how='all', inplace=True)
+        df_old.dropna(axis=1, how='all', inplace=True)
+        if df_old.size != 0:
+            df = df_old.append(df)
+    except: pass
     set_with_dataframe(worksheet, df)
     service = build('sheets', 'v4', credentials=credentials)
     response = service.spreadsheets().batchUpdate(
