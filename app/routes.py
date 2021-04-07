@@ -54,7 +54,7 @@ def tableproduct():
     if pageform.validate_on_submit():
         page = int(request.form['pagination'])
         int_features = session['filters']
-        sql = '''SELECT products_database_table.totalNOPforKeyword, keyword_table.* FROM keyword_table JOIN products_database_table ON products_database_table.parentkeyword = keyword_table.keywordname WHERE easeOfRankingScore > {} AND exactSearchVolume > {} AND totalNOPforKeyword < {} ORDER BY exactSearchVolume DESC OFFSET {} ROWS FETCH NEXT 400 ROWS ONLY;'''.format(int_features[0], int_features[1], int_features[2], 400*(page-1))
+        sql = '''SELECT products_database_table.totalNOPforKeyword, keyword_table.* FROM keyword_table JOIN products_database_table ON products_database_table.parentkeyword = keyword_table.keywordname WHERE easeOfRankingScore > {} AND exactSearchVolume > {} AND totalNOPforKeyword < {} ORDER BY exactSearchVolume DESC OFFSET {} ROWS FETCH NEXT 200 ROWS ONLY;'''.format(int_features[0], int_features[1], int_features[2], 200*(page-1))
         database.cursor.execute(sql)
         x = database.cursor.fetchall()
         df = pd.DataFrame(data = x, columns=COLUMNS).drop_duplicates(subset=['keywordid'])
