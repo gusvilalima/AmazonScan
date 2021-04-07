@@ -54,7 +54,7 @@ def tableproduct():
     if pageform.validate_on_submit():
         page = int(request.form['pagination'])
         int_features = session['filters']
-        sql = '''SELECT products_database_table.totalNOPforKeyword, keyword_table.* FROM keyword_table JOIN products_database_table ON products_database_table.parentkeyword = keyword_table.keywordname WHERE easeOfRankingScore > {} AND exactSearchVolume > {} AND totalNOPforKeyword < {} ORDER BY exactSearchVolume DESC OFFSET {} ROWS FETCH NEXT 100 ROWS ONLY;'''.format(int_features[0], int_features[1], int_features[2], 100*(page-1))
+        sql = '''SELECT products_database_table.totalNOPforKeyword, keyword_table.* FROM keyword_table JOIN products_database_table ON products_database_table.parentkeyword = keyword_table.keywordname WHERE easeOfRankingScore > {} AND exactSearchVolume > {} AND totalNOPforKeyword < {} ORDER BY exactSearchVolume DESC OFFSET {} ROWS FETCH NEXT 400 ROWS ONLY;'''.format(int_features[0], int_features[1], int_features[2], 400*(page-1))
         database.cursor.execute(sql)
         x = database.cursor.fetchall()
         df = pd.DataFrame(data = x, columns=COLUMNS).drop_duplicates(subset=['keywordid'])
@@ -64,7 +64,7 @@ def tableproduct():
             gs.main()
         except ValueError:
             return render_template('tableofproducts.html', output_text = 'Google sheet could not be updated. Try again later', form=pageform)
-        return render_template('tableofproducts.html', output_text = 'Google sheet has been updated', form=pageform)
+        return render_template('tableofproducts.html', output_text = 'Google sheet has been updated with {} new items'.format(df.shape[0]), form=pageform)
     else:
         return render_template('tableofproducts.html', output_text = None, form=pageform)
 
