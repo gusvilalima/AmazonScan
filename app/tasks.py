@@ -39,7 +39,7 @@ def load_database(int_features):
     database = aws.DataBaseConnection()
     sql = '''SELECT products_database_table.totalNOPforKeyword, keyword_table.* FROM keyword_table 
                 JOIN products_database_table ON products_database_table.parentkeyword = keyword_table.keywordname 
-                WHERE easeOfRankingScore > {} AND exactSearchVolume > {} AND totalNOPforKeyword < {} 
+                WHERE easeOfRankingScore > {} AND exactSearchVolume > {} AND totalNOPforKeyword < {} AND totalNOPforKeyword > 9
                 ORDER BY exactSearchVolume ASC;'''.format(int_features[0], int_features[1], int_features[2])
     
     database.cursor.execute(sql)
