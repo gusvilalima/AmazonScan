@@ -8,8 +8,16 @@ Created on Tue Mar 16 16:42:42 2021
 
 from flask import Flask
 from config import Config
+import redis
+from rq import Queue
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
+r = redis.Redis()
+q = Queue(connection=r)
+
+
 from app import routes
+from app import tasks

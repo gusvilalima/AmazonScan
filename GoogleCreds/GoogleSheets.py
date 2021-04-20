@@ -24,7 +24,7 @@ credentials = Credentials.from_service_account_file(
     scopes=scopes
 )
 
-WORKSHEET_ID = 873892569
+WORKSHEET_ID = 1278783935
 
 def main():
     try:
@@ -67,7 +67,7 @@ def main():
      }
     spreadsheet_key = '1oC4U8EKnL0g2EBAVT9UV8SUvqaTHUlrjxPcY1R8RSzg'
     sh = gc.open_by_key(spreadsheet_key)
-    worksheet = sh.get_worksheet(5)
+    worksheet = sh.get_worksheet(6)
     df = pd.read_csv('amazonweb/amazonweb/CSV/keyword_table_with_images.csv', sep = '\t')
     try:
         df_old = get_as_dataframe(worksheet)

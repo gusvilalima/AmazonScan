@@ -57,7 +57,7 @@ class AmazonSpider(scrapy.Spider):
                     'url': response.request.meta['redirect_urls'][0]
                     }
         
-class GoogleSpider(scrapy.Spider): 
+class GoogleSpider(scrapy.Spider):  
     
     name = 'google_spider'
     custom_settings = {'FEEDS':{PATH + 'googleresultsweb.csv':{'format':'csv'}}}
