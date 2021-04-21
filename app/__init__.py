@@ -16,7 +16,8 @@ import os
 app = Flask(__name__)
 app.config.from_object(Config)
 
-r = redis.from_url(os.environ['REDIS_URL'])
+r = redis.Redis()
+#r = redis.from_url(os.environ['REDIS_URL'])
 q = Queue(connection=r)
 
 
